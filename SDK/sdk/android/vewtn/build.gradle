@@ -8,7 +8,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -45,7 +44,7 @@ android {
 
     externalNativeBuild {
         cmake {
-            path "../../../../CMakeLists.txt"
+            path "../../../CMakeLists.txt"
             version "3.10.0+"
         }
     }
@@ -68,6 +67,7 @@ dependencies {
 
 task generateJNI {
     doLast {
+        println("generateJNI ... ... ...")
         new Prebuild().preBuild()
     }
 }

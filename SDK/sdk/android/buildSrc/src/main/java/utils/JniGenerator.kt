@@ -5,11 +5,13 @@ import java.io.File
 open class JniGenerator {
     private val jniGenCommandList = ArrayList<String>()
     protected val projectDir = File(System.getProperty("user.dir"), "../../../veWTN/sdk/android")
-    private val jniGeneratorCMD = File(projectDir, "jni_generator/jni_generator.py")
+    //private val jniGeneratorCMD = File(projectDir, "jni_generator/jni_generator.py")
+    private val srcDir = File(System.getProperty("user.dir"), "")
+    private val jniGeneratorCMD = File(System.getProperty("user.dir"), "jni_generator/jni_generator.py")
 
     private val commandTemplate:
             ((model: Model, packageName: String, fileName: String) -> String) = { model, packageName, fileName ->
-        val inputFile = File(projectDir, model.javaSrc)
+        val inputFile = File(srcDir, model.javaSrc)
                 .let { packageRootPath ->
                     File(packageRootPath, packageName.replace(".", "/").trim('/'))
                 }
@@ -24,7 +26,7 @@ open class JniGenerator {
                 .apply { if (!exists()) mkdirs() }
                 .absoluteFile
 
-        val includeFile = File(projectDir, "../../third_party/webrtc/headers/sdk/android/src/jni/jni_generator_helper.h").absolutePath;
+        val includeFile = File(projectDir, "../../../SDK/third_party/webrtc/headers/sdk/android/src/jni/jni_generator_helper.h").absolutePath;
         "python2 ${jniGeneratorCMD.absolutePath}" +
                 " --input_file $inputFile" +
                 " --output_dir $outputFile " +
@@ -38,6 +40,7 @@ open class JniGenerator {
         }
         return this
     }
+
 
     fun generateJNI() {
         jniGenCommandList.forEach {

@@ -7,7 +7,7 @@ if(ANDROID_ARM_NEON)
 endif(ANDROID_ARM_NEON)
 
 # include
-target_include_directories(${TARGET_NAME} PRIVATE sdk/android/vewtn/gen/cpp)
+target_include_directories(${TARGET_NAME} PRIVATE ../veWTN/sdk/android/vewtn/gen/cpp)
 
 # link libs, only for android
 target_link_libraries(${TARGET_NAME} PRIVATE OpenSLES)
